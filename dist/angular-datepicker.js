@@ -139,9 +139,10 @@ var Module = angular.module('datePicker', []);
 
         setDate = function (date) {
           if (date) {
-            scope.model = date;
+            var _d = date.format('YYYY-MM-DDTHH:mm:ss');
+            scope.model = _d;
             if (ngModel) {
-              ngModel.$setViewValue(date);
+              ngModel.$setViewValue(_d);
             }
           }
           scope.$emit('setDate', scope.model, scope.view);

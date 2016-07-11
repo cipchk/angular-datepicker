@@ -25,7 +25,7 @@ Module.constant('datePickerConfig', {
 Module.filter('mFormat', function () {
   return function (m, format, tz) {
     if (!(moment.isMoment(m))) {
-      return moment(m).format(format);
+      return (m) ? moment(m).format(format) : '';
     }
     return tz ? moment.tz(m, tz).format(format) : m.format(format);
   };
@@ -132,9 +132,10 @@ Module.directive('datePicker', ['datePickerConfig', 'datePickerUtils', function 
 
       setDate = function (date) {
         if (date) {
-          scope.model = date;
+          var _d = date.format('YYYY-MM-DDTHH:mm:ss');
+          scope.model = _d;
           if (ngModel) {
-            ngModel.$setViewValue(date);
+            ngModel.$setViewValue(_d);
           }
         }
         scope.$emit('setDate', scope.model, scope.view);
